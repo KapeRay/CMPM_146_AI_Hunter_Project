@@ -431,6 +431,107 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1098014086
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 120296, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_Name
+      value: RTS_Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92387956
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.38268343
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 459968, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: limitX
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: limitY
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: lastTab
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: maxHeight
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: minHeight
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: rotationSped
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: rotateLeftKey
+      value: 113
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: rotateRightKey
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: useKeyboardZooming
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: keyboardMovementSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: screenEdgeMovementSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
 --- !u!1 &1258992915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,7 +1161,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1814055782
 AudioListener:
   m_ObjectHideFlags: 0
