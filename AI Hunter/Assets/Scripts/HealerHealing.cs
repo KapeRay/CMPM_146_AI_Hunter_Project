@@ -45,6 +45,10 @@ public class HealerHealing : MonoBehaviour
                 
             }
         }
-        Debug.Log("Current Target = " + currentTarget);
+        else if(!gameObject.GetComponent<PlayerControl>().enabled && currentTarget != null)
+        {
+            currentTarget.GetComponent<Renderer>().material.SetColor("_Color", originalColor);
+        }
+        //Debug.Log("Current Target = " + currentTarget);
     }
 }

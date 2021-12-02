@@ -19,7 +19,7 @@ public class CharacterChanger : MonoBehaviour
         HEALER = GameObject.FindGameObjectsWithTag("Healer");
         TANK = GameObject.FindGameObjectsWithTag("Tank");
         players = DPS.Concat(HEALER).ToArray().Concat(TANK).ToArray();
-        Debug.Log(players.Length);
+        //Debug.Log(players.Length);
 
         for (int i = 1; i < players.Length; i++)
         {
