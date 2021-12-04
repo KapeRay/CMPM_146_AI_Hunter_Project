@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 156409880}
   - component: {fileID: 156409878}
   - component: {fileID: 156409874}
+  - component: {fileID: 156409881}
   m_Layer: 0
   m_Name: Da TANK
   m_TagString: Tank
@@ -373,6 +374,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 5
   plane: {fileID: 0}
+--- !u!114 &156409881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156409873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a5e0dbf060ba847abecec6eea8a70f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  playerHealth: 100
+  original: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &194131654 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 163546, guid: 329d0b0187f24cd4da9f775d83708bd6, type: 3}
@@ -1690,6 +1706,10 @@ PrefabInstance:
       propertyPath: screenEdgeMovementSpeed
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 11488424, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
 --- !u!1001 &1149905862
@@ -1961,6 +1981,7 @@ GameObject:
   - component: {fileID: 1258992918}
   - component: {fileID: 1258992917}
   - component: {fileID: 1258992916}
+  - component: {fileID: 1258992920}
   m_Layer: 0
   m_Name: Da BOSS
   m_TagString: Untagged
@@ -2044,6 +2065,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1258992920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258992915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8593582241cb274dbd50950ab7a6fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySpeed: 1
+  Player: {fileID: 0}
+  mainTarget: {fileID: 0}
+  listOfPlayers: []
+  aPlayerIsStun: 1
+  DPS: []
+  HEALER: []
+  TANK: []
 --- !u!1001 &1260109248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2349,6 +2390,7 @@ GameObject:
   - component: {fileID: 1428579300}
   - component: {fileID: 1428579298}
   - component: {fileID: 1428579294}
+  - component: {fileID: 1428579301}
   m_Layer: 0
   m_Name: Da DPS
   m_TagString: DPS
@@ -2473,6 +2515,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 5
   plane: {fileID: 0}
+--- !u!114 &1428579301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428579293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a5e0dbf060ba847abecec6eea8a70f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  playerHealth: 100
+  original: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1439384323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 147072, guid: 48333a5aa700be24c963813c82ef05d9, type: 3}
@@ -3058,8 +3115,10 @@ GameObject:
   - component: {fileID: 1785757954}
   - component: {fileID: 1785757958}
   - component: {fileID: 1785757959}
+  - component: {fileID: 1785757960}
   - component: {fileID: 1785757957}
   - component: {fileID: 1785757953}
+  - component: {fileID: 1785757961}
   m_Layer: 0
   m_Name: Da HEALER
   m_TagString: Healer
@@ -3184,6 +3243,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 5
   plane: {fileID: 0}
+--- !u!114 &1785757960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785757952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d829c3b2cb106a459fde8dbe17653e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1785757961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785757952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a5e0dbf060ba847abecec6eea8a70f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  playerHealth: 100
+  original: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1797875168
 GameObject:
   m_ObjectHideFlags: 0
