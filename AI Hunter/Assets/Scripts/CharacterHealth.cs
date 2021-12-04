@@ -32,8 +32,10 @@ public class CharacterHealth : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log("hello");
         if (other.gameObject.tag == "Enemy" && !isItHit)
         {
+            
             StartCoroutine(iframes());
         }
     }
