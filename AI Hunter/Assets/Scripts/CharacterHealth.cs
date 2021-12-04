@@ -10,6 +10,7 @@ public class CharacterHealth : MonoBehaviour
     public int playerHealth = 100;
     public Color original;
     private bool isItHit = false;
+    private bool enemyIsAttacking = false;
     void Start()
     {
         original = gameObject.GetComponent<Renderer>().material.color;
@@ -35,9 +36,24 @@ public class CharacterHealth : MonoBehaviour
         Debug.Log("hello");
         if (other.gameObject.tag == "Enemy" && !isItHit)
         {
-            
+            other.GetComponent<EnemyHunting>().enemySpeed = 0;
+
             StartCoroutine(iframes());
         }
+        
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("hello");
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.GetComponent<EnemyHunting>().enemySpeed = other.GetComponent<EnemyHunting>().oldSpeed;
+
+        }
+            
+
     }
     private IEnumerator iframes()
     {

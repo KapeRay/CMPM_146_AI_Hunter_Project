@@ -24,6 +24,7 @@ public class EnemyHunting : MonoBehaviour
     public GameObject[] HEALER;
     public GameObject[] TANK;
     Transform oldTarget;
+    public float oldSpeed = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +84,7 @@ public class EnemyHunting : MonoBehaviour
             oldTarget = closestPlayer;
             StartCoroutine("UpdatePath");
         }
+        
         //PathRequestManager.RequestPath(this.transform.position, closestPlayer.position, OnPathFound);
         /*if (targetChange)
         {
