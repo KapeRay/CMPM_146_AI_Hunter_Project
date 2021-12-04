@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BossAI : MonoBehaviour
 {
@@ -15,25 +16,25 @@ public class BossAI : MonoBehaviour
     bool PLAYERHITSIGNAL = false;
     bool aggroCollecting;
     bool tankDropoutFlag = true;
-    float tankDropoutThreshhold = 0.6f;
+    float tankDropoutThreshhold = 60;
     // Start is called before the first frame update
     void Start()
     {
         if (tankList == null)
-            tankList = GameObject.FindGameObjectsWithTag("Tank");
+            tankList = GameObject.FindGameObjectsWithTag("Tank").ToList<GameObject>();
         
         if (dpsList == null)
-            dpsList = GameObject.FindGameObjectsWithTag("DPS");
+            dpsList = GameObject.FindGameObjectsWithTag("DPS").ToList<GameObject>();
 
         if (healerList == null)
-            healerList = GameObject.FindGameObjectsWithTag("Tank");
+            healerList = GameObject.FindGameObjectsWithTag("Tank").ToList<GameObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (aggroQueue.Length == 0){
-            if (tankList.Length == 0 && dpsList.Length == 0 && healerList.Length == 0){
+        if (aggroQueue.Count == 0){
+            if (tankList.Count == 0 && dpsList.Count == 0 && healerList.Count == 0){
                 // Game over signal
             }
             else if (PLAYERHITSIGNAL){
@@ -62,22 +63,22 @@ public class BossAI : MonoBehaviour
         for (int j = 0; j < dpsAggroList.Length; ++j){
             if (dpsAggroList[j] > maxTankAggro){
                 tankDropoutFlag = true;
-                problem_Children.Insert(dpsList[j], 0);
+                problem_Children.Add(dpsList[j]);
             }
         }
 
         for (int j = 0; j < healerAggroList.Length; ++j){
             if (healerAggroList[j] > maxTankAggro){
                 tankDropoutFlag = true;
-                problem_Children.Insert(dpsList[j], 0);
+                problem_Children.Add(dpsList[j]);
             }
         }
 
         if(tankDropoutFlag){
             for(int i = 0; i < tankAggroList.Length; ++i){
-                maxTankAggro = Math.random();
+                maxTankAggro = Random.Range(1, 100);
                 if(maxTankAggro > tankDropoutThreshhold){
-                    tankAggroList.pop(i);
+                    tankAggroList[i] = 0;
                 }
             }
         }
