@@ -63,7 +63,7 @@ public class BossAI : MonoBehaviour
 
     void aggroCheck(){
         List<GameObject> problem_Children = new List<GameObject>{};
-        float maxTankAggro = 0.001;
+        float maxTankAggro = 0.001f;
         // Iterate through the integer arrays and grab their gameObject partners if they're meeting our criteria
         for(int i = 0; i < tankAggroList.Length; ++i){
             if (tankAggroList[i] > maxTankAggro){
