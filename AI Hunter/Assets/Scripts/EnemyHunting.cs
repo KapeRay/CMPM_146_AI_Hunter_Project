@@ -79,7 +79,7 @@ public class EnemyHunting : MonoBehaviour
         // new multiplayer chase code
         
         Transform closestPlayer = FindClosestPlayer(listOfPlayers);
-        if(oldTarget != closestPlayer)
+        if(oldTarget != closestPlayer && oldTarget != null && closestPlayer != null)
         {
             oldTarget = closestPlayer;
             StartCoroutine("UpdatePath");
@@ -111,7 +111,7 @@ public class EnemyHunting : MonoBehaviour
         {
             Vector3 directionToTarget = potentialTarget.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
+            if (dSqrToTarget < closestDistanceSqr && !potentialTarget.GetComponent<CharacterHealth>().characterIsDead)
             {
 
                 closestDistanceSqr = dSqrToTarget;

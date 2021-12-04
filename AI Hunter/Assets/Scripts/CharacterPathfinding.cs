@@ -56,7 +56,7 @@ public class CharacterPathfinding : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !gameObject.GetComponent<CharacterHealth>().characterIsDead)
         {
             StartCoroutine(UpdatePath());
         }

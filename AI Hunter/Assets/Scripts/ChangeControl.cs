@@ -9,9 +9,10 @@ public class ChangeControl : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !gameObject.GetComponent<CharacterHealth>().characterIsDead) 
         {
             change.ChangePlayer(this.gameObject);
+
             GetComponent<PlayerControl>().enabled = true;
         }
     }
