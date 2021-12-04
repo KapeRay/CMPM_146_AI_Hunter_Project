@@ -29,7 +29,7 @@ public class CharacterPathfinding : MonoBehaviour
     IEnumerator UpdatePath()
     {
         //endingPos = control.mousePos;
-        Debug.Log(endingPos);
+        //Debug.Log(endingPos);
         //Debug.Log(mousePos);
         if (Time.timeSinceLevelLoad < .3f)
         {
@@ -61,7 +61,7 @@ public class CharacterPathfinding : MonoBehaviour
             StartCoroutine(UpdatePath());
         }
         endingPos = control.mousePos;
-        Debug.Log(endingPos);
+        //Debug.Log(endingPos);
     }
 
 
