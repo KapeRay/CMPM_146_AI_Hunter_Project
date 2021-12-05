@@ -10,6 +10,8 @@ public class CharacterHealth : MonoBehaviour
     public int playerHealth = 100;
     public Color original;
     private bool isItHit = false;
+    private bool enemyIsAttacking = false;
+    public bool characterIsDead = false;
     void Start()
     {
         original = gameObject.GetComponent<Renderer>().material.color;
@@ -19,7 +21,15 @@ public class CharacterHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(playerHealth <= 0)
+        {
+            characterIsDead = true;
+            gameObject.GetComponent<Renderer>().material.color = Color.grey;
+        }
+        else
+        {
+            characterIsDead = false;
+        }
     }
     public void healingTheCharacter(int heal)
     {
@@ -33,11 +43,30 @@ public class CharacterHealth : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         Debug.Log("hello");
-        if (other.gameObject.tag == "Enemy" && !isItHit)
+        if (other.gameObject.tag == "Enemy" && !isItHit && !characterIsDead)
         {
-            
+            other.GetComponent<EnemyHunting>().enemySpeed = 0;
+
             StartCoroutine(iframes());
         }
+        else if (characterIsDead)
+        {
+            other.GetComponent<EnemyHunting>().enemySpeed = other.GetComponent<EnemyHunting>().oldSpeed;
+        }
+        
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("hello");
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.GetComponent<EnemyHunting>().enemySpeed = other.GetComponent<EnemyHunting>().oldSpeed;
+
+        }
+            
+
     }
     private IEnumerator iframes()
     {

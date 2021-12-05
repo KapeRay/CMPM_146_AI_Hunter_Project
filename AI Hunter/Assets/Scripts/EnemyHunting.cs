@@ -24,6 +24,7 @@ public class EnemyHunting : MonoBehaviour
     public GameObject[] HEALER;
     public GameObject[] TANK;
     Transform oldTarget;
+    public float oldSpeed = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -78,11 +79,12 @@ public class EnemyHunting : MonoBehaviour
         // new multiplayer chase code
         
         Transform closestPlayer = FindClosestPlayer(listOfPlayers);
-        if(oldTarget != closestPlayer)
+        if(oldTarget != closestPlayer && oldTarget != null && closestPlayer != null)
         {
             oldTarget = closestPlayer;
             StartCoroutine("UpdatePath");
         }
+        
         //PathRequestManager.RequestPath(this.transform.position, closestPlayer.position, OnPathFound);
         /*if (targetChange)
         {
@@ -109,7 +111,7 @@ public class EnemyHunting : MonoBehaviour
         {
             Vector3 directionToTarget = potentialTarget.position - currentPosition;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
+            if (dSqrToTarget < closestDistanceSqr && !potentialTarget.GetComponent<CharacterHealth>().characterIsDead)
             {
 
                 closestDistanceSqr = dSqrToTarget;

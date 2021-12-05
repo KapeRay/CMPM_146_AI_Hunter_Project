@@ -5,13 +5,15 @@ using System.Linq;
 
 public class BossAI : MonoBehaviour
 {
-    List<GameObject> aggroQueue;
-    List<GameObject> tankList;
-    float[] tankAggroList;
-    List<GameObject> dpsList;
-    float[] dpsAggroList;
-    List<GameObject> healerList;
-    float[] healerAggroList;
+    private List<GameObject> aggroQueue;
+    private List<GameObject> tankList;
+    private float[] tankAggroList;
+    private List<GameObject> dpsList;
+    private float[] dpsAggroList;
+    private List<GameObject> healerList;
+    private float[] healerAggroList;
+    public GameObject target;
+    private int i;
     
     bool PLAYERHITSIGNAL = false;
     bool aggroCollecting;
@@ -28,6 +30,8 @@ public class BossAI : MonoBehaviour
 
         if (healerList == null)
             healerList = GameObject.FindGameObjectsWithTag("Tank").ToList<GameObject>();
+
+        
     }
 
     // Update is called once per frame
@@ -42,7 +46,13 @@ public class BossAI : MonoBehaviour
             }
         }
 
-
+        // Update all characters' aggro lists
+        if (target.GetComponent<CharacterHealth>().playerHealth <= 0) {
+            target = aggroQueue[++i];
+            if (target == null) {
+                // Game over signal
+            }
+        }
     }
     
     public IEnumerator aggroCheckTimer(){
@@ -53,7 +63,7 @@ public class BossAI : MonoBehaviour
 
     void aggroCheck(){
         List<GameObject> problem_Children = new List<GameObject>{};
-        float maxTankAggro = 0;
+        float maxTankAggro = 0.001f;
         // Iterate through the integer arrays and grab their gameObject partners if they're meeting our criteria
         for(int i = 0; i < tankAggroList.Length; ++i){
             if (tankAggroList[i] > maxTankAggro){
@@ -81,6 +91,10 @@ public class BossAI : MonoBehaviour
                     tankAggroList[i] = 0;
                 }
             }
+        }
+
+        foreach (GameObject problem_child in problem_Children){
+            aggroQueue.Add(problem_child);
         }
     }
 }

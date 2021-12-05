@@ -1798,7 +1798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
       propertyPath: lastTab
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
       propertyPath: maxHeight
@@ -1810,7 +1810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
       propertyPath: rotationSped
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
       propertyPath: rotateLeftKey
@@ -1831,6 +1831,10 @@ PrefabInstance:
     - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
       propertyPath: screenEdgeMovementSpeed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11455738, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
+      propertyPath: scrollWheelZoomingSensitivity
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 11488424, guid: 407bd5cbe8c43334bb1b25c0f3826974, type: 3}
       propertyPath: m_Enabled
@@ -2212,6 +2216,7 @@ MonoBehaviour:
   DPS: []
   HEALER: []
   TANK: []
+  oldSpeed: 2
 --- !u!54 &1258992921
 Rigidbody:
   m_ObjectHideFlags: 0

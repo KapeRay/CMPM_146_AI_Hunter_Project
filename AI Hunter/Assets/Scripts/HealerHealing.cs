@@ -10,6 +10,7 @@ public class HealerHealing : MonoBehaviour
     bool cursorIsCurrentlyOn = false;
     Collider currentTarget;
     Color originalColor;
+    public int healthAmount = 10;
     void Start()
     {
         
@@ -33,14 +34,27 @@ public class HealerHealing : MonoBehaviour
                     currentTarget = hit.collider;
                     originalColor = currentTarget.GetComponent<CharacterHealth>().original;
                     cubeRenderer.material.SetColor("_Color", Color.green);
-                    if (Input.GetKeyDown("h"))
+                    if (Input.GetKeyDown("h") && !currentTarget.GetComponent<CharacterHealth>().characterIsDead)
                     {
+                        healthAmount = 10;
                         hit.collider.GetComponent<CharacterHealth>().healingTheCharacter(10);
+                    }
+                    if (currentTarget.GetComponent<CharacterHealth>().characterIsDead && Input.GetKeyDown("h"))
+                    {
+                        healthAmount *= 2;
+                        currentTarget.GetComponent<CharacterHealth>().healingTheCharacter(healthAmount);
                     }
                 }
                 else
                 {
-                    currentTarget.GetComponent<Renderer>().material.SetColor("_Color", originalColor);
+                    if (!currentTarget.GetComponent<CharacterHealth>().characterIsDead)
+                    {
+                        currentTarget.GetComponent<Renderer>().material.SetColor("_Color", originalColor);
+                    }
+                    else
+                    {
+                        currentTarget.GetComponent<Renderer>().material.SetColor("_Color", Color.gray);
+                    }
                 }
                 
             }
