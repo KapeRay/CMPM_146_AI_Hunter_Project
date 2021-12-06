@@ -11,6 +11,7 @@ public class HealerHealing : MonoBehaviour
     Collider currentTarget;
     Color originalColor;
     public int healthAmount = 10;
+    bool healing = false;
     void Start()
     {
         
