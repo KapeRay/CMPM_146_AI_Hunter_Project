@@ -11,10 +11,12 @@ public class BossAI : MonoBehaviour
     Dictionary<float, GameObject> playerDict; 
     GameObject[] tagBuffer;
     GameObject target;
+    GameObject goBuffer;
     float tankAggroChance = 1.0f;
     float dpsAggroChance = 0.0f;
     float healAggroChance = 0.0f;
     bool recalculatingAggro;
+    public bool PLAYERHITSIGNAL = false;
     float recalculateTimer = 1.0f;
 
     enum aggroStateEnum{
@@ -48,6 +50,9 @@ public class BossAI : MonoBehaviour
             case (int)aggroStateEnum.Healer :
             case (int)aggroStateEnum.Tank :
             default :
+                if(PLAYERHITSIGNAL){
+                    aggroCheck();
+                }
                 break;
         }
         
@@ -60,7 +65,9 @@ public class BossAI : MonoBehaviour
                 sum += 2.0f;     
             }
             else{
-                player.Key = player.GetComponent<CharacterHealth>().aggroTime;
+                goBuffer = player.Value;
+                playerDict.Remove(player.Key);
+                playerDict.Add(goBuffer.GetComponent<CharacterHealth>().aggroTime, goBuffer);
                 sum += player.Key;
             }
             
