@@ -10,10 +10,13 @@ public class CameraController : MonoBehaviour
     public float minY = 20f;
     public float maxY = 60f;
 
+    public float rotationSpeed = 80f;
+
     // Update is called once per frame
     void Update()
     {
         Vector3 pos = transform.position;
+        float rotate = 0;
 
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panBorderThickness)
         {
@@ -31,6 +34,14 @@ public class CameraController : MonoBehaviour
         {
             pos.x -= panSpeed * Time.deltaTime;
         }
+        if (Input.GetKey("q"))
+        {
+            rotate = -1;
+        }
+        if (Input.GetKey("e"))
+        {
+            rotate = 1;
+        }
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         pos.y -= scroll * scrollSpeed * 100f * Time.deltaTime;
@@ -40,5 +51,6 @@ public class CameraController : MonoBehaviour
         pos.z = Mathf.Clamp(pos.z, -panLimit.y, panLimit.y);
 
         transform.position = pos;
+        transform.Rotate(Vector3.up, rotate * Time.deltaTime * rotationSpeed, Space.World);
     }
 }
