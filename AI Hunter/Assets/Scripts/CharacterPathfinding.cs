@@ -105,7 +105,7 @@ public class CharacterPathfinding : MonoBehaviour
             //print(currentWaypoint);
 
             //transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-            Debug.Log("currentWaypoint y = " + currentWaypoint.y);
+            //Debug.Log("currentWaypoint y = " + currentWaypoint.y);
             currentWaypoint.y = 1;
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, playerSpeed * Time.deltaTime);
             yield return null;

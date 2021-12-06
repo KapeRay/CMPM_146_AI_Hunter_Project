@@ -38,12 +38,14 @@ public class HealerHealing : MonoBehaviour
                     if (Input.GetKeyDown("h") && !currentTarget.GetComponent<CharacterHealth>().characterIsDead)
                     {
                         healthAmount = 10;
-                        hit.collider.GetComponent<CharacterHealth>().healingTheCharacter(10);
+                        hit.collider.GetComponent<CharacterHealth>().healingTheCharacter(healthAmount);
+                        gameObject.GetComponent<CharacterHealth>().aggro += healthAmount * 0.7f;
                     }
                     if (currentTarget.GetComponent<CharacterHealth>().characterIsDead && Input.GetKeyDown("h"))
                     {
                         healthAmount *= 2;
                         currentTarget.GetComponent<CharacterHealth>().healingTheCharacter(healthAmount);
+                        gameObject.GetComponent<CharacterHealth>().aggro += healthAmount * 0.7f;
                     }
                 }
                 else

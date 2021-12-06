@@ -9,6 +9,7 @@ public class EnemyHunting : MonoBehaviour
     const float pathUpdateMoveThreshhold = .5f;
     //Setting up changable variables for enemies speeds
     public float enemySpeed = 1f;
+    public Transform target;
     public Transform Player;
     public Transform mainTarget;
     Rigidbody rb;
@@ -45,20 +46,19 @@ public class EnemyHunting : MonoBehaviour
         //Transform closestPlayer = FindClosestPlayer(listOfPlayers);
         //pathFinder.StartFindPath(transform.position, closestPlayer.position);
         //PathRequestManager.RequestPath(transform.position, closestPlayer.position, OnPathFound);
-        Transform closestPlayer = FindClosestPlayer(listOfPlayers);
-        oldTarget = closestPlayer;
-        StartCoroutine("UpdatePath");
-
+        Transform closestPlayer = target;
+        oldTarget = target;
     }
 
     // Update is called once per frame
     IEnumerator UpdatePath()
     {
+
         if (Time.timeSinceLevelLoad < .3f)
         {
             yield return new WaitForSeconds(.3f);
         }
-        closestPlayer = FindClosestPlayer(listOfPlayers);
+        closestPlayer = target;
         PathRequestManager.RequestPath(transform.position, closestPlayer.position, OnPathFound);
 
         float sqrMoveThreshhold = pathUpdateMoveThreshhold * pathUpdateMoveThreshhold;
@@ -77,8 +77,7 @@ public class EnemyHunting : MonoBehaviour
     void Update()
     {
         // new multiplayer chase code
-        
-        Transform closestPlayer = FindClosestPlayer(listOfPlayers);
+        Transform closestPlayer = target;
         if(oldTarget != closestPlayer && oldTarget != null && closestPlayer != null)
         {
             oldTarget = closestPlayer;

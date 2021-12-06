@@ -8,6 +8,7 @@ public class CharacterHealth : MonoBehaviour
 
     public int maxHealth = 100;
     public int playerHealth = 100;
+    public float aggro = 0.0f;
     public Color original;
     private bool isItHit = false;
     private bool enemyIsAttacking = false;
@@ -42,7 +43,6 @@ public class CharacterHealth : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("hello");
         if (other.gameObject.tag == "Enemy" && !isItHit && !characterIsDead)
         {
             other.GetComponent<EnemyHunting>().enemySpeed = 0;
@@ -59,7 +59,7 @@ public class CharacterHealth : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("hello");
+        //Debug.Log("hello");
         if (other.gameObject.tag == "Enemy")
         {
             other.GetComponent<EnemyHunting>().enemySpeed = other.GetComponent<EnemyHunting>().oldSpeed;
@@ -75,7 +75,7 @@ public class CharacterHealth : MonoBehaviour
             isItHit = true;
             playerHealth -= 10;
             // process pre-yield
-            Debug.Log(playerHealth);
+            //Debug.Log(playerHealth);
             yield return new WaitForSeconds(5.0f);
             isItHit = false;
         }
