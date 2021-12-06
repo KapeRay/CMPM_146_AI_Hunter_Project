@@ -15,16 +15,18 @@ public class Shoot : MonoBehaviour
         {
             GameObject projectile = Instantiate(projectilePrefab, player.transform.position, projectilePrefab.transform.rotation);
             projectile.transform.LookAt(target.transform);
-            SendHoming(projectile);
+            StartCoroutine(SendHoming(projectile));
+            Debug.Log("Shoot");
         }
     }
 
-    public void SendHoming(GameObject projectile)
+    public IEnumerator SendHoming(GameObject projectile)
     {
         while (Vector3.Distance(target.transform.position, projectile.transform.position) >= 1f)
         {
             projectile.transform.position += (target.transform.position - projectile.transform.position).normalized * speed * Time.deltaTime;
             projectile.transform.LookAt(target.transform);
+            yield return null;
         }
         player.GetComponent<CharacterHealth>().aggro += 1.0f;
         if(!(target.GetComponent<BossAI>().PLAYERHITSIGNAL)){

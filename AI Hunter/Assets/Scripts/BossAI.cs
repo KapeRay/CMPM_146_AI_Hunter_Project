@@ -5,13 +5,13 @@ using System.Linq;
 
 public class BossAI : MonoBehaviour
 {
-    private List<GameObject> aggroQueue;
+    private List<GameObject> aggroQueue = new List<GameObject>();
     private List<GameObject> tankList;
-    private List<float> tankAggroList;
+    private List<float> tankAggroList = new List<float>();
     private List<GameObject> dpsList;
-    private List<float> dpsAggroList;
+    private List<float> dpsAggroList = new List<float>();
     private List<GameObject> healerList;
-    private List<float> healerAggroList;
+    private List<float> healerAggroList = new List<float>();
     public GameObject target;
     public Transform pathTarget;
     private int i;
@@ -25,43 +25,52 @@ public class BossAI : MonoBehaviour
     {
         if (tankList == null)
             tankList = GameObject.FindGameObjectsWithTag("Tank").ToList<GameObject>();
-        
+            Debug.Log("Tank list size = " + tankList.Count);
+
         if (dpsList == null)
             dpsList = GameObject.FindGameObjectsWithTag("DPS").ToList<GameObject>();
 
         if (healerList == null)
             healerList = GameObject.FindGameObjectsWithTag("Tank").ToList<GameObject>();
 
+        Debug.Log(tankList.Count);
 
-        foreach (var tank in tankList){
+        foreach (GameObject tank in tankList){
             tankAggroList.Add(tank.GetComponent<CharacterHealth>().aggro);
         }
-        foreach (var dps in tankList){
+        foreach (GameObject dps in tankList){
             dpsAggroList.Add(dps.GetComponent<CharacterHealth>().aggro);
         }
-        foreach (var healer in tankList){
+        foreach (GameObject healer in tankList){
             healerAggroList.Add(healer.GetComponent<CharacterHealth>().aggro);
         }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (aggroQueue.Count == 0){
+            
             if (tankList.Count == 0 && dpsList.Count == 0 && healerList.Count == 0){
                 // Game over signal
-                Debug.Log("Party wipe!");
+                Debug.Log("Party wipe! 1");
             }
             else if (PLAYERHITSIGNAL){
+                PLAYERHITSIGNAL = false;
                 aggroCheck();
+                PLAYERHITSIGNAL = true;
             }
         }
 
+
         // Update all characters' aggro lists
-        if (target.GetComponent<CharacterHealth>().playerHealth <= 0) {
+
+        if (target != null && target.GetComponent<CharacterHealth>().playerHealth <= 0) {
             if (target == null) {
                 // Game over signal
-                Debug.Log("Party wipe!");
+                Debug.Log("Party wipe! 2");
             }
             target = aggroQueue[++i];
         }
@@ -132,6 +141,7 @@ public class BossAI : MonoBehaviour
         for (int j = 0; j < healerAggroList.Count; ++j) {
             healerList[j].GetComponent<CharacterHealth>().aggro = 0;
         }
+        Debug.Log(problem_Children.Count);
         //getComponent
     }
 }
