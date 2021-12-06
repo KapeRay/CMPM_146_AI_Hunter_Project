@@ -24,7 +24,7 @@ public class EnemyHunting : MonoBehaviour
     public GameObject[] DPS;
     public GameObject[] HEALER;
     public GameObject[] TANK;
-    Transform oldTarget;
+    public Transform oldTarget;
     public float oldSpeed = 2f;
 
     // Start is called before the first frame update
@@ -48,6 +48,7 @@ public class EnemyHunting : MonoBehaviour
         //PathRequestManager.RequestPath(transform.position, closestPlayer.position, OnPathFound);
         Transform closestPlayer = target;
         oldTarget = target;
+        StartCoroutine(UpdatePath());
     }
 
     // Update is called once per frame
@@ -77,9 +78,13 @@ public class EnemyHunting : MonoBehaviour
     void Update()
     {
         // new multiplayer chase code
+        
         Transform closestPlayer = target;
-        if(oldTarget != closestPlayer && oldTarget != null && closestPlayer != null)
+        Debug.Log("Old Target = " + oldTarget);
+        Debug.Log("old target" + oldTarget);
+        if (oldTarget != closestPlayer && oldTarget != null && closestPlayer != null)
         {
+            Debug.Log("Hello there, ahh genaral Kenobi");
             oldTarget = closestPlayer;
             StartCoroutine("UpdatePath");
         }
