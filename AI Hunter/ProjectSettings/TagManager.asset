@@ -8,6 +8,8 @@ TagManager:
   - Healer
   - Tank
   - Enemy
+  - Terrain
+  - Projectile
   layers:
   - Default
   - TransparentFX
