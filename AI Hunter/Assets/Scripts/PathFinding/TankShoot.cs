@@ -11,7 +11,7 @@ public class TankShoot : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Z))
         {
             GameObject projectile = Instantiate(projectilePrefab, player.transform.position, projectilePrefab.transform.rotation);
             projectile.transform.LookAt(target.transform);

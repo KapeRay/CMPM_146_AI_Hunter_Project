@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.99999946, b: 0.99999946, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -330,6 +330,7 @@ GameObject:
   - component: {fileID: 156409874}
   - component: {fileID: 156409881}
   - component: {fileID: 156409882}
+  - component: {fileID: 156409883}
   m_Layer: 0
   m_Name: Da TANK
   m_TagString: Tank
@@ -469,6 +470,8 @@ MonoBehaviour:
   maxHealth: 100
   playerHealth: 100
   aggro: 0
+  timeAlive: 0
+  aggroTime: 0
   original: {r: 0, g: 0, b: 0, a: 0}
   characterIsDead: 0
 --- !u!135 &156409882
@@ -484,6 +487,22 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.82
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &156409883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156409873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9c288c5e5e08749a988b1ab78eb121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 897873211}
+  player: {fileID: 156409873}
+  target: {fileID: 1258992915}
+  speed: 20
 --- !u!1 &194131654 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 163546, guid: 329d0b0187f24cd4da9f775d83708bd6, type: 3}
@@ -1399,7 +1418,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -0.86346436, y: 486.76434}
+  m_AnchoredPosition: {x: -0.8635254, y: 486.76434}
   m_SizeDelta: {x: 264.5598, y: 106.5222}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &731233577
@@ -2954,8 +2973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146c8f88d8632cf4fb14f7a4a49a9c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  pathTarget: {fileID: 0}
   PLAYERHITSIGNAL: 0
 --- !u!1001 &1260109248
 PrefabInstance:
@@ -3492,6 +3509,8 @@ MonoBehaviour:
   maxHealth: 100
   playerHealth: 10
   aggro: 0
+  timeAlive: 0
+  aggroTime: 0
   original: {r: 0, g: 0, b: 0, a: 0}
   characterIsDead: 0
 --- !u!135 &1428579302
@@ -4360,6 +4379,8 @@ MonoBehaviour:
   maxHealth: 100
   playerHealth: 100
   aggro: 0
+  timeAlive: 0
+  aggroTime: 0
   original: {r: 0, g: 0, b: 0, a: 0}
   characterIsDead: 0
 --- !u!135 &1785757962

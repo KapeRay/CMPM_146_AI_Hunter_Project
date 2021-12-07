@@ -10,14 +10,17 @@ public class BossAI : MonoBehaviour
 {
     Dictionary<GameObject, CharacterHealth> playerDict; 
     GameObject[] tagBuffer;
-    GameObject target;
+    GameObject target = null;
     GameObject goBuffer;
     float tankAggroChance = 1.0f;
     float dpsAggroChance = 0.0f;
     float healAggroChance = 0.0f;
     bool recalculatingAggro;
     public bool PLAYERHITSIGNAL = false;
+    bool tankDropoutSignal;
+    float tankDropoutRate = 0.6f;
     float recalculateTimer = 1.0f;
+    IEnumerable<GameObject> targetGen;
 
     enum aggroStateEnum{
         Tank,
@@ -47,33 +50,57 @@ public class BossAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PLAYERHITSIGNAL && !recalculatingAggro){
+            StartCoroutine(recalculatingAggroEnum());
+        }
+
         switch(aggroState){
             case aggroStateEnum.Dps :
-                foreach (var player in playerDict){
-                   while(player.Key.tag == "DPS" && player.Value.playerHealth > 0){
-                       target = player.Key;
-                       gameObject.GetComponent<EnemyHunting>().target = target.transform;
-                   }
+                lock(playerDict){
+                    foreach (var player in playerDict){
+                        if(player.Key.tag == "DPS" && player.Value.playerHealth > 0){
+                            target = player.Key;
+                        } 
+                    }
                 }
-                goto case aggroStateEnum.Tank;
+                if(target == null){
+                    goto case aggroStateEnum.Tank;
+                }
+                break;
             case aggroStateEnum.Healer :
-                foreach (var player in playerDict){
-                   while(player.Key.tag == "Healer" && player.Value.playerHealth > 0){
-                       target = player.Key;
-                       gameObject.GetComponent<EnemyHunting>().target = target.transform;
-                   }
+                lock(playerDict){
+                    foreach (var player in playerDict){
+                        if(player.Key.tag == "Healer" && player.Value.playerHealth > 0){
+                            target = player.Key;
+                            break;
+                        } 
+                    }
                 }
-                aggroState = aggroStateEnum.Tank;
+                if(target == null){
+                    aggroState = aggroStateEnum.Tank;
+                }
                 break;
             case aggroStateEnum.Tank :
-            default :
-                if(PLAYERHITSIGNAL){
-                    aggroCheck();
+                lock(playerDict){
+                    foreach (var player in playerDict){
+                        if(player.Key.tag == "Tank" && player.Value.playerHealth > 0){
+                            target = player.Key;
+                            break;
+                        } 
+                    }
                 }
                 break;
+            case (aggroStateEnum)3:
+                break;
+        }
+
+        if (target != null){
+            gameObject.GetComponent<EnemyHunting>().target = target.transform;
+            Debug.Log("the lad: " + gameObject.GetComponent<EnemyHunting>().target);
         }
         
     }
+
 
     void aggroCheck(){
         // Gather what the current sum is
@@ -92,33 +119,64 @@ public class BossAI : MonoBehaviour
         dpsAggroChance = 0.0f;
 
         foreach(var player in playerDict){
-            if(player.Key.tag == "Tank"){
+            if(player.Key.tag == "Tank" && player.Value.playerHealth > 0){
                 tankAggroChance += player.Value.aggroTime / sum;     
             }
-            else if (player.Key.tag == "DPS"){
+            else if (player.Key.tag == "DPS" && player.Value.playerHealth > 0){
                 dpsAggroChance += player.Value.aggroTime / sum; 
+                if(player.Value.aggroTime > 2.0f){
+                    tankDropoutSignal = true;
+                }
+            }
+            else {
+                if(player.Value.aggroTime > 2.0f){
+                    tankDropoutSignal = true;
+                }
             }
         }
-
+        Debug.Log(tankDropoutSignal);
         // determine what state we're in
-        sum = Random.Range(0.0f, 1.1f);
-        if(sum < tankAggroChance){
-            aggroState = aggroStateEnum.Tank;
+        sum = Random.Range(0.0f, 1.0f);
+        if(tankDropoutSignal){
+            if(sum < tankAggroChance && Random.Range(0.0f, 1.1f) < (1.0f - tankDropoutRate)){
+                aggroState = aggroStateEnum.Tank;
+                Debug.Log("Tank!");
+            }
+            else if( (sum < tankAggroChance + dpsAggroChance) || (tankDropoutSignal && sum < dpsAggroChance) ){
+                aggroState = aggroStateEnum.Dps;
+                Debug.Log("DPS");
+            }
+            else{
+                aggroState = aggroStateEnum.Healer;
+            }
         }
-        else if(sum < tankAggroChance + dpsAggroChance){
-            aggroState = aggroStateEnum.Dps;
+        else {
+            if(sum < tankAggroChance){
+                aggroState = aggroStateEnum.Tank;
+                Debug.Log("Tank!");
+            }
+            else if(sum < (tankAggroChance + dpsAggroChance)){
+                aggroState = aggroStateEnum.Dps;
+                Debug.Log("DPS");
+            }
+            else{
+                aggroState = aggroStateEnum.Healer;
+            }
         }
-        else{
-            aggroState = aggroStateEnum.Healer;
-        }
-
+        
         healAggroChance = 1.0f - (dpsAggroChance + tankAggroChance);
+        Debug.Log(aggroState);
+        Debug.Log("RnG :" + sum);
+        Debug.Log("Tank :" + tankAggroChance);
+        Debug.Log("Heal :" + healAggroChance);
+        Debug.Log("DPS :" + dpsAggroChance);
+       
     }
 
     IEnumerator recalculatingAggroEnum() {
         recalculatingAggro = true;
-        yield return new WaitForSeconds(recalculateTimer);
         aggroCheck();
+        yield return new WaitForSeconds(recalculateTimer);
         recalculatingAggro = false;
     }
 }

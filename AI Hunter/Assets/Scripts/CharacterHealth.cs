@@ -34,6 +34,8 @@ public class CharacterHealth : MonoBehaviour
         else
         {
             timeAlive += Time.deltaTime;
+            if(gameObject.tag == "Tank")
+                aggro += 2 * Time.deltaTime;
             aggroTime = aggro / timeAlive;
             characterIsDead = false;
         }
