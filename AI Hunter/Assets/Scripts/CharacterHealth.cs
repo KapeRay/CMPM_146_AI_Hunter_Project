@@ -34,7 +34,7 @@ public class CharacterHealth : MonoBehaviour
         else
         {
             timeAlive += Time.deltaTime;
-            if(gameObject.tag == "Tank")
+            if(gameObject.tag == "Tank" && GameObject.FindGameObjectsWithTag("Enemy")[0].GetComponent<BossAI>().PLAYERHITSIGNAL)
                 aggro += 2 * Time.deltaTime;
             aggroTime = aggro / timeAlive;
             characterIsDead = false;
