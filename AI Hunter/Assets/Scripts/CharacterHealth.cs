@@ -84,7 +84,8 @@ public class CharacterHealth : MonoBehaviour
             playerHealth -= 10;
             // process pre-yield
             //Debug.Log(playerHealth);
-            yield return new WaitForSeconds(5.0f);
+            // waitForSeconds was 5.0f
+            yield return new WaitForSeconds(2.5f);
             isItHit = false;
         }
     }

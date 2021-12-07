@@ -2935,7 +2935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8593582241cb274dbd50950ab7a6fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 2
+  enemySpeed: 7
   target: {fileID: 0}
   Player: {fileID: 0}
   mainTarget: {fileID: 0}
@@ -2945,7 +2945,7 @@ MonoBehaviour:
   HEALER: []
   TANK: []
   oldTarget: {fileID: 0}
-  oldSpeed: 2
+  oldSpeed: 7
 --- !u!54 &1258992921
 Rigidbody:
   m_ObjectHideFlags: 0
