@@ -157,11 +157,11 @@ public class BossAI : MonoBehaviour
             }
         }
         else {
-            if(sum < tankAggroChance){
+            if(sum < tankAggroChance * 2){
                 aggroState = aggroStateEnum.Tank;
                 Debug.Log("Tank!");
             }
-            else if(sum < (tankAggroChance + dpsAggroChance)){
+            else if(sum < (tankAggroChance * 2 + dpsAggroChance)){
                 aggroState = aggroStateEnum.Dps;
                 Debug.Log("DPS");
             }
