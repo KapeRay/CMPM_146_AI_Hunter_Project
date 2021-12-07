@@ -8,10 +8,19 @@ public class Shoot : MonoBehaviour
     public GameObject player;
     public GameObject target;
     public float speed;
+    public KeyCode shoot = KeyCode.Space;
+    public KeyCode powerShot = KeyCode.K;
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(shoot))
+        {
+            GameObject projectile = Instantiate(projectilePrefab, player.transform.position, projectilePrefab.transform.rotation);
+            projectile.transform.LookAt(target.transform);
+            StartCoroutine(SendHoming(projectile));
+            Debug.Log("Shoot");
+        }
+        if (Input.GetKey(powerShot))
         {
             GameObject projectile = Instantiate(projectilePrefab, player.transform.position, projectilePrefab.transform.rotation);
             projectile.transform.LookAt(target.transform);

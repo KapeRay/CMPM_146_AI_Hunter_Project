@@ -7,11 +7,12 @@ public class TankShoot : MonoBehaviour
     public GameObject projectilePrefab;
     public GameObject player;
     public GameObject target;
-    public float speed;
+    public float speed = 15f;
+    public KeyCode shoot = KeyCode.Z;
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        if(Input.GetKeyDown(shoot))
         {
             GameObject projectile = Instantiate(projectilePrefab, player.transform.position, projectilePrefab.transform.rotation);
             projectile.transform.LookAt(target.transform);
