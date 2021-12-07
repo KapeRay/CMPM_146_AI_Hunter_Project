@@ -8,7 +8,7 @@ using System.Linq;
 
 public class BossAI : MonoBehaviour
 {
-    Dictionary<float, GameObject> playerDict; 
+    Dictionary<GameObject, CharacterHealth> playerDict; 
     GameObject[] tagBuffer;
     GameObject target;
     GameObject goBuffer;
@@ -24,31 +24,48 @@ public class BossAI : MonoBehaviour
         Dps,
         Healer
     }
-    int aggroState = 3;
+    aggroStateEnum aggroState = (aggroStateEnum)3;
 
     // Start is called before the first frame update
     void Start()
     {
         // Populates our dictionary
-        playerDict = new Dictionary<float, GameObject>();
+        playerDict = new Dictionary<GameObject, CharacterHealth>();
         tagBuffer = GameObject.FindGameObjectsWithTag("Tank");
         foreach (var tank in tagBuffer)
-            playerDict.Add(2.0f, tank);
+            playerDict.Add(tank, tank.GetComponent<CharacterHealth>());
 
+        tagBuffer = GameObject.FindGameObjectsWithTag("Healer");
         foreach (var healer in tagBuffer)
-            playerDict.Add(healer.GetComponent<CharacterHealth>().aggroTime, healer);
+            playerDict.Add(healer, healer.GetComponent<CharacterHealth>());
 
+        tagBuffer = GameObject.FindGameObjectsWithTag("DPS");
         foreach (var dps in tagBuffer)
-            playerDict.Add(dps.GetComponent<CharacterHealth>().aggroTime, dps);
+            playerDict.Add(dps, dps.GetComponent<CharacterHealth>());
     }
 
     // Update is called once per frame
     void Update()
     {
         switch(aggroState){
-            case (int)aggroStateEnum.Dps :
-            case (int)aggroStateEnum.Healer :
-            case (int)aggroStateEnum.Tank :
+            case aggroStateEnum.Dps :
+                foreach (var player in playerDict){
+                   while(player.Key.tag == "DPS" && player.Value.playerHealth > 0){
+                       target = player.Key;
+                       gameObject.GetComponent<EnemyHunting>().target = target.transform;
+                   }
+                }
+                goto case aggroStateEnum.Tank;
+            case aggroStateEnum.Healer :
+                foreach (var player in playerDict){
+                   while(player.Key.tag == "Healer" && player.Value.playerHealth > 0){
+                       target = player.Key;
+                       gameObject.GetComponent<EnemyHunting>().target = target.transform;
+                   }
+                }
+                aggroState = aggroStateEnum.Tank;
+                break;
+            case aggroStateEnum.Tank :
             default :
                 if(PLAYERHITSIGNAL){
                     aggroCheck();
@@ -59,43 +76,43 @@ public class BossAI : MonoBehaviour
     }
 
     void aggroCheck(){
+        // Gather what the current sum is
         float sum = 0.0f;
         foreach(var player in playerDict){
-            if(player.Value.tag == "Tank"){
+            if(player.Key.tag == "Tank"){
                 sum += 2.0f;     
             }
             else{
-                goBuffer = player.Value;
-                playerDict.Remove(player.Key);
-                playerDict.Add(goBuffer.GetComponent<CharacterHealth>().aggroTime, goBuffer);
-                sum += player.Key;
+                sum += player.Value.aggroTime;
             }
-            
         }
 
+        // Determine chances of getting aggro
         tankAggroChance = 0.0f;
         dpsAggroChance = 0.0f;
-        healAggroChance = 0.0f;
 
         foreach(var player in playerDict){
-            if(player.Value.tag == "Tank"){
-                tankAggroChance += player.Key / sum;     
+            if(player.Key.tag == "Tank"){
+                tankAggroChance += player.Value.aggroTime / sum;     
             }
-            else if (player.Value.tag == "DPS"){
-                dpsAggroChance += player.Key / sum; 
+            else if (player.Key.tag == "DPS"){
+                dpsAggroChance += player.Value.aggroTime / sum; 
             }
         }
 
+        // determine what state we're in
         sum = Random.Range(0.0f, 1.1f);
         if(sum < tankAggroChance){
-            aggroState = (int)aggroStateEnum.Tank;
+            aggroState = aggroStateEnum.Tank;
         }
         else if(sum < tankAggroChance + dpsAggroChance){
-            aggroState = (int)aggroStateEnum.Dps;
+            aggroState = aggroStateEnum.Dps;
         }
         else{
-            aggroState = (int)aggroStateEnum.Healer;
+            aggroState = aggroStateEnum.Healer;
         }
+
+        healAggroChance = 1.0f - (dpsAggroChance + tankAggroChance);
     }
 
     IEnumerator recalculatingAggroEnum() {
