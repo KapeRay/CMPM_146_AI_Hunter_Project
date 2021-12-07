@@ -9,6 +9,9 @@ public class CharacterChanger : MonoBehaviour
     public GameObject[] HEALER;
     public GameObject[] TANK;
     public GameObject[] players;
+    public GameObject dps;
+    public GameObject tank;
+    public GameObject healer;
 
     [SerializeField]
     GameObject currentPlayer;
@@ -26,6 +29,29 @@ public class CharacterChanger : MonoBehaviour
             players[i].GetComponent<PlayerControl>().enabled = false;
         }
         currentPlayer = players[0];
+        
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            dps.GetComponent<PlayerControl>().enabled = true;
+            tank.GetComponent<PlayerControl>().enabled = false;
+            healer.GetComponent<PlayerControl>().enabled = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            dps.GetComponent<PlayerControl>().enabled = false;
+            tank.GetComponent<PlayerControl>().enabled = true;
+            healer.GetComponent<PlayerControl>().enabled = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            dps.GetComponent<PlayerControl>().enabled = false;
+            tank.GetComponent<PlayerControl>().enabled = false;
+            healer.GetComponent<PlayerControl>().enabled = true;
+        }
     }
 
     public void ChangePlayer(GameObject player)

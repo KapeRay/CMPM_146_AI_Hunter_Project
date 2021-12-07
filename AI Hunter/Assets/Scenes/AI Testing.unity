@@ -327,10 +327,10 @@ GameObject:
   - component: {fileID: 156409879}
   - component: {fileID: 156409880}
   - component: {fileID: 156409878}
+  - component: {fileID: 156409884}
   - component: {fileID: 156409874}
   - component: {fileID: 156409881}
   - component: {fileID: 156409882}
-  - component: {fileID: 156409883}
   m_Layer: 0
   m_Name: Da TANK
   m_TagString: Tank
@@ -487,7 +487,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.82
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &156409883
+--- !u!114 &156409884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

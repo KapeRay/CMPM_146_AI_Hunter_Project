@@ -20,7 +20,7 @@ public class Shoot : MonoBehaviour
             StartCoroutine(SendHoming(projectile));
             Debug.Log("Shoot");
         }
-        if (Input.GetKey(powerShot))
+        if (Input.GetKey(powerShot) && gameObject.tag == "DPS" && gameObject.GetComponent<PlayerControl>().enabled)
         {
             GameObject projectile = Instantiate(projectilePrefab, player.transform.position, projectilePrefab.transform.rotation);
             projectile.transform.LookAt(target.transform);
