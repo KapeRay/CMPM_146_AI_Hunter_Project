@@ -19,7 +19,7 @@ public class BossAI : MonoBehaviour
     public bool PLAYERHITSIGNAL = false;
     bool tankDropoutSignal;
     float tankDropoutRate = 0.6f;
-    float recalculateTimer = 1.0f;
+    float recalculateTimer = 3.0f;
     IEnumerable<GameObject> targetGen;
 
     enum aggroStateEnum{
@@ -51,6 +51,7 @@ public class BossAI : MonoBehaviour
     void Update()
     {
         if(PLAYERHITSIGNAL && !recalculatingAggro){
+            StopCoroutine(recalculatingAggroEnum());
             StartCoroutine(recalculatingAggroEnum());
         }
 
@@ -96,7 +97,12 @@ public class BossAI : MonoBehaviour
 
         if (target != null){
             gameObject.GetComponent<EnemyHunting>().target = target.transform;
+            gameObject.GetComponent<EnemyHunting>().enabled = true;
             Debug.Log("the lad: " + gameObject.GetComponent<EnemyHunting>().target);
+            if(target.GetComponent<CharacterHealth>().playerHealth < 0){
+                gameObject.GetComponent<EnemyHunting>().enabled = false;
+                target = null;
+            }
         }
         
     }
