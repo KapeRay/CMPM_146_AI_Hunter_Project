@@ -1,0 +1,7 @@
+Right Click to select a player capsule. Green is a healer, Red is DPS, and Blue is the Tank.
+Left Click to move to the target location.
+Camera is panned by moving the mouse to the edge of the screen.
+Mouse wheel zooms the camera in and out.
+Space bar to shoot while selecting the Tank or the DPS.
+K to do burst damage while selecting the DPS.
+H to heal the target beneath the cursor (Not applicable to boss or terrain) while selecting the healer.
